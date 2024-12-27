@@ -6,13 +6,15 @@ function JobForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image, gpus }),
-    });
-    const data = await response.json();
-    alert(data.message);
+    const payload = { image, gpus: parseInt(gpus, 10) }; // 构建请求数据
+    try {
+      // 发送 POST 请求到后端
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/submit`, payload);
+      alert(response.data.message); // 显示后端返回的消息
+    } catch (error) {
+      console.error("Error submitting job:", error); // 打印错误日志
+      alert("Failed to submit job: " + error.response?.data?.error || error.message);
+    }
   };
 
   return (
