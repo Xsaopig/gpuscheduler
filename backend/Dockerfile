@@ -1,11 +1,11 @@
 # Dockerfile
-FROM m.daocloud.io/docker.io/library/golang:1.23 as builder
+FROM golang:1.23 as builder
 WORKDIR /app
 COPY ./src/ .
 RUN go mod tidy && go build -o main
 
 # Final stage
-FROM m.daocloud.io/docker.io/library/alpine:latest
+FROM alpine:latest
 WORKDIR /root/
 
 # Install glibc

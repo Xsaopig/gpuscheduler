@@ -10,12 +10,12 @@ function JobForm() {
     try {
       // 发送 POST 请求到后端
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/submit`, payload);
-      alert(response.data.message); // 显示后端返回的消息
-    } catch (error) {
-      console.error("Error submitting job:", error); // 打印错误日志
-      alert("Failed to submit job: " + error.response?.data?.error || error.message);
-    }
-  };
+        alert(response.data.message); // 显示后端返回的消息
+      } catch (error) {
+        console.error("Error submitting job:", error); // 打印错误日志
+        alert("Failed to submit job: " + error.response?.data?.error || error.message);
+      }
+    };
 
   return (
     <form onSubmit={handleSubmit}>
