@@ -1,0 +1,33 @@
+# gpu-scheduler-backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpu-scheduler-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gpu-scheduler-backend
+  template:
+    metadata:
+      labels:
+        app: gpu-scheduler-backend
+    spec:
+      containers:
+        - name: gpu-scheduler-backend
+          image: gpu-scheduler-backend:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gpu-scheduler-backend
+spec:
+  selector:
+    app: gpu-scheduler-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

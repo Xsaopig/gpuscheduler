@@ -1,0 +1,33 @@
+# gpu-scheduler-frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpu-scheduler-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gpu-scheduler-frontend
+  template:
+    metadata:
+      labels:
+        app: gpu-scheduler-frontend
+    spec:
+      containers:
+        - name: gpu-scheduler-frontend
+          image: gpu-scheduler-frontend:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gpu-scheduler-frontend
+spec:
+  selector:
+    app: gpu-scheduler-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
